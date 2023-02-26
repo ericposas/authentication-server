@@ -26,24 +26,26 @@ Go to "Clients" and select your newly created client (e.i. "spring-api")
 Click on the "Roles" tab, and click on "Add Role"
 Enter a name for the Role and save
 
-Add a Role:
-Add an app role, something like "app_admin" or "app_user"
-Click on "Add Role"
-Type the name of the role (i.e. "app_user") in *Role 
-Optionally, add a Description
-Click "Save"
-After the role is created, go to the "Details" tab
-Toggle on the "Composite Roles" switch 
-A new "Composite Roles" menu will appear
-Click on the "Client Roles" dropdown and select your Client ID
-From the "Available Roles", add your Client-specific role or multiple role(s) (in case of an Admin or Superuser where they should get all permissions of a "user" and also the "admin" role(s))
+Add a Role (Optional):
+- This just makes it easier to associate one or more Client Roles with a single Role
+- Add an app role, something like "app_admin" or "app_user"
+- Click on "Add Role"
+- Type the name of the role (i.e. "app_user") in *Role 
+- Optionally, add a Description
+- Click "Save"
+- After the role is created, go to the "Details" tab
+- Toggle on the "Composite Roles" switch 
+- A new "Composite Roles" menu will appear
+- Click on the "Client Roles" dropdown and select your Client ID
+- From the "Available Roles", add your Client-specific role or multiple role(s) (in case of an Admin or Superuser where they should get all permissions of a "user" and also the "admin" role(s))
 - i.e. "app_admin" will get the "admin" and "user" roles association)
 
 Add User:
 - Go to "Users"
 - Add a new user by entering a username
 - Go to the "Credentials" tab and set a password for them
-- Add the the appropriate app role to the user (i.e. "app_user")
+- Add the appropriate Client Role(s) to the user (i.e. "user", "admin")
+- Alternatively, add the the appropriate Composite Realm Role to the user (i.e. "app_user", "app_admin") where "app_admin" might contain both the "user" and "admin" Client Roles
 
 Add a Scope:
 - Go to "Client Scopes"
