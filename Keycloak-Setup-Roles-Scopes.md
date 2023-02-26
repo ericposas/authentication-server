@@ -40,6 +40,21 @@ Add a Role (Optional):
 - From the "Available Roles", add your Client-specific role or multiple role(s) (in case of an Admin or Superuser where they should get all permissions of a "user" and also the "admin" role(s))
 - i.e. "app_admin" will get the "admin" and "user" roles association)
 
+Default Roles
+- To ensure that when a new user signs up they inherit the User role do the following
+- Click on "Roles"
+- Go to the "Default Roles" tab
+- Add either the composite Realm Role "app_user" or 
+- Add the Client Role "user"
+- Now when a new person registers with the Keycloak UI, they will automatically get the "user" role
+
+Default Groups
+- To add a User to a Default Group as soon as they sign up
+- Click on "Groups"
+- Go to the "Default Groups" tab
+- Click on a group (i.e. "user") from the "Available Groups" and click "Add" to move it over to "Default Groups"
+- Now when a user signs up, they will be assigned to the User Group and inherit permissions available to the User role
+
 Add User:
 - Go to "Users"
 - Add a new user by entering a username
@@ -64,9 +79,19 @@ Add your Scope to the defaults assigned:
 - Add your new scope to the "Assigned Default Client Scopes"
 - Notes:
   - we need to add the scope by default, or otherwise request it in the "scope=" curl param
+  - client scopes need to be assigned to a role, but not necessarily by default -- however, requesting a scope like "create:user" in the auth request won't give it to a user just because it's requested; keycloak will check assigned scopes for a role and give back what is appropriate for that role (what scopes have been assigned and are available for that role) in the jwt
   - since the scope was added to the "user" role, it can now show up by default if a person has the "user" role assigned to them
 
-Configuration
+Groups
+- You can also Group together scopes and permissions by creating a Group that will auto-assign to any user in that group
+- Click on "Groups"
+- Add a new Group by clicking on "New"
+- Add a name for your Group and Save
+- Click on "Role Mappings" for that Group
+- Add any Realm Roles or Client Roles for your specific app that your Group's users will need 
+
+
+Configuration Notes:
 - access all keycloak endpoint and configuration settings here
 - http://localhost:8000/auth/realms/dev/.well-known/openid-configuration
 - use these to configure Postman for API testing
