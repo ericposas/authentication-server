@@ -7,32 +7,63 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres-keycloak-data:/var/lib/postgresql/data
 
+  # keycloak:
+  #   container_name: keycloak
+  #   image: jboss/keycloak
+  #   restart: always
+  #   environment:
+  #     KEYCLOAK_USER: ${KEYCLOAK_USER}
+  #     KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+  #     DB_VENDOR: POSTGRES
+  #     DB_ADDR: postgres
+  #     DB_DATABASE: ${POSTGRES_DB}
+  #     DB_USER: ${POSTGRES_USER}
+  #     DB_PASSWORD: ${POSTGRES_PASSWORD}
+  #   ports:
+  #     - "80:8080"
+  #     - "443:8443"
+  #   depends_on:
+  #     - postgres
+  #   volumes:
+  #     - keycloak-data:/opt/jboss/keycloak/standalone/data
+
   keycloak:
+    image: quay.io/keycloak/keycloak:latest
     container_name: keycloak
-    image: jboss/keycloak
     restart: always
+    ports:
+      - 80:8080
+      - 443:8443
+    volumes:
+      - ./certs/fullchain.pem:/etc/x509/https/tls.crt
+      - ./certs/privkey.pem:/etc/x509/https/tls.key
     environment:
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: password
+      JAVA_OPTS_APPEND: "-D keycloak.profile.feature.upload_script=enabled"
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
       DB_VENDOR: POSTGRES
       DB_ADDR: postgres
-      DB_DATABASE: db
-      DB_USER: user
-      DB_PASSWORD: password
-    ports:
-      - "8000:8080"
+      DB_DATABASE: ${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+
+  adminer:
+    container_name: adminer
+    image: adminer:latest
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
     depends_on:
       - postgres
-    volumes:
-      - keycloak-data:/opt/jboss/keycloak/standalone/data
+    ports:
+      - 8082:8080
 
 volumes:
   postgres-keycloak-data:

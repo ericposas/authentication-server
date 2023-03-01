@@ -1,7 +1,8 @@
-src/main/resources/application.properties
-src/main/resources/application.yml
-node_modules
+certs
+envs
+.env
 *.log
+node_modules
 
 HELP.md
 .gradle
