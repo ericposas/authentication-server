@@ -43,8 +43,10 @@ services:
       - 80:8080
       - 443:8443
     volumes:
-      - ./certs/fullchain.pem:/etc/x509/https/tls.crt
-      - ./certs/privkey.pem:/etc/x509/https/tls.key
+      # - ./certs/fullchain.pem:/etc/x509/https/tls.crt
+      # - ./certs/privkey.pem:/etc/x509/https/tls.key
+      - /etc/letsencrypt/live/authentic8-jwt.net/fullchain.pem:/etc/x509/https/tls.crt
+      - /etc/letsencrypt/live/authentic8-jwt.net/privkey.pem:/etc/x509/https/tls.key
     environment:
       JAVA_OPTS_APPEND: "-D keycloak.profile.feature.upload_script=enabled"
       KEYCLOAK_USER: ${KEYCLOAK_USER}
