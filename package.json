@@ -6,6 +6,7 @@
   "author": "eric <ericposas@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "connect": "ssh ubuntu@44.214.173.106"
+    "start": "env $(cat ./envs/local/.env) docker compose up",
+    "connect": "ssh ubuntu@authentic8-jwt.net"
   }
 }
