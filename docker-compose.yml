@@ -17,8 +17,8 @@ services:
 
   keycloak:
     container_name: keycloak
-    # image: jboss/keycloak
-    image: quay.io/keycloak/keycloak:latest
+    image: jboss/keycloak
+    # image: quay.io/keycloak/keycloak:latest
     restart: always
     environment:
       KEYCLOAK_USER: ${KEYCLOAK_USER}
