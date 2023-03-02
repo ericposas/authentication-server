@@ -18,7 +18,6 @@ services:
   keycloak:
     container_name: keycloak
     image: jboss/keycloak
-    # image: quay.io/keycloak/keycloak:latest
     restart: always
     environment:
       KEYCLOAK_USER: ${KEYCLOAK_USER}
@@ -29,7 +28,6 @@ services:
       DB_USER: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      # - "80:8080"
       - "443:8443"
     depends_on:
       - postgres
@@ -37,29 +35,6 @@ services:
       - keycloak-data:/opt/jboss/keycloak/standalone/data
       - ./certs/fullchain.pem:/etc/x509/https/tls.crt
       - ./certs/privkey.pem:/etc/x509/https/tls.key
-      # - /etc/letsencrypt/live/authentic8-jwt.net/fullchain.pem:/etc/x509/https/tls.crt
-      # - /etc/letsencrypt/live/authentic8-jwt.net/privkey.pem:/etc/x509/https/tls.key
-
-      # keycloak:
-      #   image: quay.io/keycloak/keycloak:latest
-      #   container_name: keycloak
-      #   restart: always
-      #   ports:
-      #     - 80:8080
-      #     - 443:8443
-      #   volumes:
-      #     # - ./certs/fullchain.pem:/etc/x509/https/tls.crt
-      #     # - ./certs/privkey.pem:/etc/x509/https/tls.key
-      #     - /etc/letsencrypt/live/authentic8-jwt.net/fullchain.pem:/etc/x509/https/tls.crt
-      #     - /etc/letsencrypt/live/authentic8-jwt.net/privkey.pem:/etc/x509/https/tls.key
-      #   environment:
-      #     KEYCLOAK_USER: ${KEYCLOAK_USER}
-      #     KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      #     DB_VENDOR: POSTGRES
-      #     DB_ADDR: postgres
-      #     DB_DATABASE: ${POSTGRES_DB}
-      #     DB_USER: ${POSTGRES_USER}
-      #     DB_PASSWORD: ${POSTGRES_PASSWORD}
 
   adminer:
     container_name: adminer
