@@ -15,6 +15,18 @@ services:
     volumes:
       - postgres-keycloak-data:/var/lib/postgresql/data
 
+  # PREREQUISITES (example on EC2 Ubuntu instance)
+  # - set up DNS names for domain to point to server
+  # - install certbot:  snap install --classic certbot
+  # - install certbot certificates on server:  sudo certbot --standalone -d your.domain.net
+  # - copy the certs down from /etc/letsencrypt/live/your.domain.net/*.pem
+  # - save the certs in your local project directory under ./certs 
+  # - build a custom nginx image that copies those certs over:
+  #
+  #       FROM nginx
+  #       COPY ./certs /etc/nginx/certs
+  #       COPY ./nginx/ssl-default.conf /etc/nginx/conf.d/default.conf
+  #
   nginx:
     image: webdev00/nginx-with-config:0.0.3
     container_name: nginx
@@ -45,10 +57,10 @@ services:
       - keycloak-data:/opt/jboss/keycloak/standalone/data
       # instead of a custom nginx image with config(s),
       # you can also mount the cert files directly into the keycloak image
-      # 
+      #
       # - ./certs/fullchain.pem:/etc/x509/https/tls.crt
       # - ./certs/privkey.pem:/etc/x509/https/tls.key
-      # 
+      #
 
   adminer:
     container_name: adminer
