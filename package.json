@@ -6,8 +6,8 @@
   "author": "eric <ericposas@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "start": "env $(cat ./envs/local/.env) docker compose up",
-    "start:detach": "env $(cat ./envs/local/.env) docker compose up -d",
+    "start": "docker compose up",
+    "start:detach": "docker compose up -d",
     "connect": "ssh ubuntu@authentic8-jwt.net"
   }
 }
