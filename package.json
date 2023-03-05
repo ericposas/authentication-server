@@ -6,9 +6,10 @@
     "author": "eric <ericposas@outlook.com>",
     "license": "MIT",
     "scripts": {
-        "start": "docker compose up",
-        "start:detach": "docker compose up -d",
-        "build": "docker build --no-cache -t webdev00/nginx-keycloak-https:latest . -f nginx.Dockerfile && docker push webdev00/nginx-keycloak-https:latest",
+        "web": "yarn build:nginx && docker compose -f docker-compose-web.yml up",
+        "web:detach": "yarn build:nginx docker compose -f docker-compose-web.yml up -d",
+        "local": "docker compose up",
+        "build:nginx": "docker build --no-cache -t webdev00/nginx-keycloak-https:latest . -f nginx.Dockerfile && docker push webdev00/nginx-keycloak-https:latest",
         "connect": "ssh ubuntu@authentic8-jwt.net"
     }
 }
