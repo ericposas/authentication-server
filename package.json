@@ -1,13 +1,14 @@
 {
-  "name": "authentication-service",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:ericposas/authentication-server",
-  "author": "eric <ericposas@outlook.com>",
-  "license": "MIT",
-  "scripts": {
-    "start": "docker compose up",
-    "start:detach": "docker compose up -d",
-    "connect": "ssh ubuntu@authentic8-jwt.net"
-  }
+    "name": "authentication-service",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "git@github.com:ericposas/authentication-server",
+    "author": "eric <ericposas@outlook.com>",
+    "license": "MIT",
+    "scripts": {
+        "start": "docker compose up",
+        "start:detach": "docker compose up -d",
+        "build": "docker build --no-cache -t webdev00/nginx-keycloak-https:latest . -f nginx.Dockerfile && docker push webdev00/nginx-keycloak-https:latest",
+        "connect": "ssh ubuntu@authentic8-jwt.net"
+    }
 }
